@@ -1,14 +1,12 @@
 
 
 class Game {
-  constructor({inputContainer, setting}) {
-    this.inputContainer = [];
-    this.setting = gen();
-  } 
-  
 
- gen () {
-  return ['0','1','2','3','4','5','6','7','8','9'].sort(function(a, b){return 0.5 - Math.random()}).slice(0,3)
+
+ numGenerator () {
+  let a = Math.random()*6
+  let b = a+3
+  return ['0','1','2','3','4','5','6','7','8','9'].sort(function(a, b){return 0.5 - Math.random()}).slice(a,b)
 }
 
 
