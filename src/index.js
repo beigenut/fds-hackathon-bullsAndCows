@@ -64,3 +64,5 @@ strikeCount(settingNum, inputNum) {
 
 }
 
+
+//00----
