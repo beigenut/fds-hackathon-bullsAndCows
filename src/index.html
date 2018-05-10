@@ -1,58 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>해커톤 템플릿 프로젝트</title>
-  <link rel="stylesheet" href="./index.scss">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <link href="https://fonts.googleapis.com/css?family=Hind+Siliguri|Titan+One" rel="stylesheet">
+ <link rel="stylesheet" href="./index.scss">
+ <title>해커톤 템플릿 프로젝트</title>
 </head>
 <body>
-
-  <header>  
-  </header>
-  <div class="upperPart">
-
+ <header>
+  <div class="row">
+   <h1>Bulls and Cows Game</h1>
+   <p>Welcome to Amoogeona's</p>
   </div>
-  <div class="lowerPart">
-    <div>
-      <span class="lowerPart__gameStart">start</span></div>
-    <div class="lowerPart__resetStart"></div>
-    <div class="lowerPart__howToPlay">
-    </div>
+ </header>
+ <section class="section__game">
+   <div class="row row-rel">
+     <button class="game-bnt__how-to">HowToPlay</button>
+   </div>
+   <div class="row">
+     <button class="btn game-bnt__start">GAME START</button>
+     <button class="btn game-bnt__reset btn__disable">RESET GAME</button>
+   </div>
+   <div class="row">
 
-  </div>
+       <input class="game-form__input" placeholder="Enter 3 digit numbers">
 
-  <content>
+   </div>
+   <div class="row result__win offScreen">
+     <p class="game-win">YOU WIN !!</p>
+     <span class="game-win__chance">Used <span class="span__color-blue">4</span> chance(s)</span>
+     <span class="game-win__time">Play time <span class="js__game-win__time span__color-blue">02:30</span></span>
+   </div>
+   <div class="row result__lose offScreen">
+     <p class="game-lose span__color-pink">YOU LOSE !!</p>
+     <span class="game-lose__answer">The answer was <span class="span__color-pink game-lose__answer-nums">4 5 6</span>. TRY AGAIN</span>
+   </div>
+   <div class="row">
+     <span class="game-left__chance">You have <span class="span__color-blue">4</span> chance(s) left</span>
+     <span class="game-left__time">You have <span class="js__game-left__time span__color-blue">01:00</span> second(s) left</span>
+   </div>
+   <div class="row js__record">
+     <p class="game-record">Record(s)</p>
 
-    <div class="conclusion">
-
-    </div>
-
-    <input class="inputBar">
-
-  <div class="chanceConut"></div>
-  <span class="timeLeft"></span>
-  <span class="timePast"></span>
-
-  <div class="recordBoard">
-    <h2> Record(s) </h2>
-    <div class="recordBoard__recorder"></div>
-    <div class="recordBoard__result"></div>
-
-
-
-
-  </div>
-
-
-  </content>
-
-
-
-
-
-  <script src="./moment.js"></script>
-  <script src="./index.js"></script>
+     <div class="game-record__list">
+        <span class="game-record__turn">1</span>
+        <span class="game-record__digit game-record__digit1">3</span>
+        <span class="game-record__digit game-record__digit2">5</span>
+        <span class="game-record__digit game-record__digit3">6</span>
+        <span class="game-record__strike"><span class="span__color-blue">3</span> Strike(s)</span>
+        <span class="game-record__ball"><span class="span__color-blue">2</span> Ball(s)</span>
+        <span class="game-record__out"><span class="span__color-blue">Out</span></span>
+     </div>
+   </div>
+ </section>
+ 
+ <script src="./index.js"></script>
 </body>
 </html>
