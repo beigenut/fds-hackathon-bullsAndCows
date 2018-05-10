@@ -1,6 +1,15 @@
 
 class Game {
 
+  constructor (strike = 0, ball = 0, out = 0, inning = 0, judgeCount = 0, setting = 0 ) {
+    this.strike = strike;
+    this.ball = ball;
+    this.out = out;
+    this.inning = inning;
+    this.judgeCount = judgeCount;
+    this.setting = setting;
+  }
+
   numGenerator () {
     let a = Math.random()*6
     let b = a+3
@@ -12,7 +21,11 @@ class Game {
   let count = 0;
   for (let i = 0; i < 3; i ++) {
     for (let j = 0; j <3;j++ ){
-       i === j ? "" : (setting[i] === input[j] ? count++ : "" ) 
+      if (i !== j) {
+        if (setting[i] === input[j]) {
+          count++
+        }
+      }
     }
   }
   return count;
@@ -57,7 +70,7 @@ judge (outCount, inning, strikeCount) {
   if(outCount === 3) {
     conclusion.textContent = "Fail, Three Out"
     // document.querySelector(".try").classList.add("unshow")   
-    return 0
+    return 1
   }
   if(inning === 9 && strikeCount < 3) {
     conclusion.textContent = "Fail, Over Nine Inning"
@@ -67,7 +80,7 @@ judge (outCount, inning, strikeCount) {
   if(strikeCount > 2) {
     conclusion.textContent = q2.join("") + ", You Win"
     // document.querySelector(".try").classList.add("unshow")
-    return 2
+    return 1
   }
 }
 
@@ -77,7 +90,7 @@ result (strikeCount, ballCount, outCount) {
     let recordBoard = document.querySelector(".recordBoard__result");
     recordBoard.appendChild(document.createElement("p"));
     recordBoard.lastChild.textContent =
-    + " Out: " + outCount.toString()
+    " Out: " + outCount.toString()
   } else {
     let recordBoard = document.querySelector(".recordBoard__result");
     recordBoard.appendChild(document.createElement("p"));
@@ -97,35 +110,10 @@ recorder (input, inning) {
 }
 
 
-
-promptor (setting, inning) {
-  let input = window.prompt("Input 3 digits number")
-  if (this.inputConvertor(input)){
-    inning++
-    let strike = this.strikeCount (setting, input)
-    let ball = this.ballCount(setting, input)
-    let out = this.outCount(strike, ball)
-    this.recorder (input, inning)
-    this.result (strike, ball, out)
-    switch (this.judge (out, inning, strike)) {
-      case 0: return ""
-      case 1: return ""
-      case 2: return ""
-      default: this.promptor(setting, inning)
-    } 
-      } else { this.promptor(setting, inning) }
-}
 }
 
 
-
-
-let setting;
-let inputContainer = [];
-let demand ;
-let input;
-let inning = 0;
-
+let demand;
 
 
 let startButton = document.querySelector(".lowerPart__gameStart")
@@ -136,15 +124,39 @@ let timeLeft = document.querySelector(".timeLeft")
 let recoder =  document.querySelector(".recordBoard__recorder")
 let result = document.querySelector(".recordBoard__result")
 let conclusion = document.querySelector(".conclusion")
-
+let inputBar = document.querySelector(".inputBar")
 
 
 
 
 startButton.addEventListener("click", e => {
-  demand = new Game
-  setting = demand.numGenerator()
-  demand.promptor(setting, inning)
-  } 
+  demand = new Game()
+  demand.setting = demand.numGenerator()
+  console.log("click new game", demand)
+  startButton.textContent = "Reset"}
 )
+
+inputBar.addEventListener('keypress', e => {
+  let key = e.keyCode;
+  if (key === 13 && !demand.judgeCount) {
+    let input = inputBar.value
+    if (demand.inputConvertor(input)) {
+      demand.inning++
+      input = demand.inputConvertor(input)
+      demand.ball = demand.ballCount(demand.setting,input)
+      demand.strike = demand.strikeCount(demand.setting,input)
+      demand.out += demand.outCount(demand.strike,demand.ball)
+      demand.recorder(input,demand.inning)
+      demand.result(demand.strike, demand.ball, demand.out)
+      console.log(demand)
+      demand.judgeCount = demand.judge(demand.out, demand.inning, demand.strike)
+      if(demand.judgeCount > 10) {
+        startButton.textContent = "Start"
+      }
+      inputBar.value = ""
+    } else { return ""}
+  }
+});
+
+
 
