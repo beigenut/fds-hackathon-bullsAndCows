@@ -1,13 +1,19 @@
 
 
-class Game {
 
-
- numGenerator () {
+ let setting =   numGenerator () {
   let a = Math.random()*6
   let b = a+3
   return ['0','1','2','3','4','5','6','7','8','9'].sort(function(a, b){return 0.5 - Math.random()}).slice(a,b)
 }
+
+
+
+
+
+
+class Game {
+
 
 
  ballCount (setting, input) {
@@ -51,7 +57,39 @@ strikeCount(settingNum, inputNum) {
 }
 
 
- output (num, setting, inputContainer) {v
+judge (outCount, inning, strikeCount) {
+  if(outCount === 3) {
+    resultText.textContent = "Fail, Three Out"
+    document.querySelector(".try").classList.add("unshow")   
+    return ""
+  }
+  if(inning === 9 && strikeCount < 3) {
+    resultText.textContent = "Fail, Over Nine Inning"
+    document.querySelector(".try").classList.add("unshow")
+    return ""
+  }
+  if(strikeCount > 2) {
+    resultText.textContent = q2.join("") + ", You Win"
+    document.querySelector(".try").classList.add("unshow")
+    return ""
+  }
+}
+
+
+recorder (input, inning, strikeCount, ballCount, outCount) {
+  let recordBoard = document.querySelector(".record");
+  recordBoard.appendChild(document.createElement("p"));
+  recordBoard.lastChild.textContent =
+  "Input: " + input.value.toString()
+  + " / Inning: " + inning.toString() 
+  + " / Ball: " + strikeCount.toString() 
+  + " / Strike: " + ballCount.toString() 
+  + " / Out: " + outCount.toString()
+}
+
+
+
+ output (num, setting, inputContainer) {
   let input = inputConvertor(num)
   let ball = ballCount(setting, input)
   let strike = strikeCount(setting, input)
@@ -61,6 +99,3 @@ strikeCount(settingNum, inputNum) {
 }
 
 }
-
-
-//00----
