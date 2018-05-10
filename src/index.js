@@ -1,13 +1,15 @@
+import { setInterval } from "timers";
 
 class Game {
 
-  constructor (strike = 0, ball = 0, out = 0, inning = 0, judgeCount = 0, setting = 0 ) {
+  constructor (strike = 0, ball = 0, out = 0, inning = 0, judgeCount = 0, setting = 0, time = new Date().getTime() ) {
     this.strike = strike;
     this.ball = ball;
     this.out = out;
     this.inning = inning;
     this.judgeCount = judgeCount;
     this.setting = setting;
+    this.time = time;
   }
 
   numGenerator () {
@@ -22,7 +24,7 @@ class Game {
   for (let i = 0; i < 3; i ++) {
     for (let j = 0; j <3;j++ ){
       if (i !== j) {
-        if (setting[i] === input[j]) {
+        if (this.setting[i] === this.input[j]) {
           count++
         }
       }
@@ -110,6 +112,36 @@ recorder (input, inning) {
 }
 
 
+timerInterval (timer) {
+  let x = setInterval( e => {
+    console.log("interval!")
+    let past = new Date().getTime()
+    let left = 60000 - (past - this.time)
+    console.log("left", left)
+    let minutes = Math.floor((left % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((left % (1000 * 60)) / 1000);
+    timer.textContent = "0" + minutes + " : " + seconds
+    if (left < 0) {
+      clearInterval(x);
+      this.judgeCount = 1;
+      document.getElementById("demo").innerHTML = "EXPIRED";
+    }
+    }, 1000)
+}
+
+timerWhole (timer) {
+  setInterval( e => {
+    console.log("whole")
+    let past = new Date().getTime()
+    let left = past - this.time
+    console.log("left", left)
+    let minutes = Math.floor((left % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((left % (1000 * 60)) / 1000);
+    timer.textContent = "0" + minutes + " : " + seconds
+    }, 1000)
+  
+}
+
 }
 
 
@@ -121,6 +153,7 @@ let resetButton = document.querySelector(".lowerPart__gameReset")
 let howButton = document.querySelector(".lowerPart__howToPlay")
 let count = document.querySelector(".chanceCount")
 let timeLeft = document.querySelector(".timeLeft")
+let timePast = document.querySelector(".timePast")
 let recoder =  document.querySelector(".recordBoard__recorder")
 let result = document.querySelector(".recordBoard__result")
 let conclusion = document.querySelector(".conclusion")
@@ -131,6 +164,7 @@ let inputBar = document.querySelector(".inputBar")
 
 startButton.addEventListener("click", e => {
   demand = new Game()
+  demand.timerWhole(timePast)
   demand.setting = demand.numGenerator()
   console.log("click new game", demand)
   startButton.textContent = "Reset"}
@@ -140,6 +174,7 @@ inputBar.addEventListener('keypress', e => {
   let key = e.keyCode;
   if (key === 13 && !demand.judgeCount) {
     let input = inputBar.value
+    demand.timerInterval(timeLeft)
     if (demand.inputConvertor(input)) {
       demand.inning++
       input = demand.inputConvertor(input)
