@@ -247,7 +247,7 @@ let jsRecord = document.querySelector(".js__record")
 let resultWin = document.querySelector(".result__win") 
 let resultLose = document.querySelector(".result__lose")
 
-let jsFixed = document.querySelector(".js__row__fixed")
+// let jsFixed = document.querySelector(".js__row__fixed")
 
 // let recoder =  document.querySelector(".recordBoard__recorder")
 // let result = document.querySelector(".recordBoard__result")
@@ -277,6 +277,7 @@ resetButton.addEventListener("click", e => {
   resultLose.classList.add("offScreen")
   inputBar.classList.add("offScreen")
 
+  inputBar.value  = ""
 
   let children = jsRecord.children.length
   for ( let i = 0; i < children; i++) {
@@ -285,6 +286,9 @@ resetButton.addEventListener("click", e => {
   }
   jsRecord.appendChild(document.createElement("div"))
   jsRecord.lastChild.classList.add("record__base")
+
+  leftChance.classList.add("span__color-blue")
+  leftChance.classList.remove("span__color-pink")
 
   timeLeft.textContent = "01:00";
   demand.judgeCount = 1;
@@ -303,6 +307,12 @@ inputBar.addEventListener('keypress', e => {
     demand.input = inputBar.value
     console.log(demand)
     if (demand.inputConvertor()) {
+
+      if(demand.inning > 4){
+        console.log("inning coloring enter")
+        leftChance.classList.remove("span__color-blue")
+        leftChance.classList.add("span__color-pink")
+      }
 
       timeLeft.classList.remove("span__color-pink")
       timeLeft.classList.add("span__color-blue")
