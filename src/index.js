@@ -237,7 +237,7 @@ let jsRecord = document.querySelector(".js__record")
 let resultWin = document.querySelector(".result__win") 
 let resultLose = document.querySelector(".result__lose")
 
-
+let jsFixed = document.querySelector(".js__row__fixed")
 
 // let recoder =  document.querySelector(".recordBoard__recorder")
 // let result = document.querySelector(".recordBoard__result")
@@ -263,9 +263,14 @@ resetButton.addEventListener("click", e => {
   jsRecord.classList.add("offScreen")
   resetButton.classList.add("btn__disable")
   startButton.classList.remove("btn__disable")
+  resultWin.classList.add("offScreen")
+  resultLose.classList.add("offScreen")
   inputBar.classList.add("offScreen")
 
-  for ( let i = 0; i < jsRecord.children.length+2; i++) {
+
+  let children = jsRecord.children.length
+  for ( let i = 0; i < children; i++) {
+    console.log("remove node", i)
     jsRecord.removeChild(jsRecord.lastChild)
   }
   jsRecord.appendChild(document.createElement("div"))
@@ -273,9 +278,9 @@ resetButton.addEventListener("click", e => {
 
   timeLeft.textContent = "01:00";
   demand.judgeCount = 1;
-  demand = new Game()
-  demand.timerWhole(timePast)
-  demand.setting = demand.numGenerator()
+  // demand = new Game()
+  // demand.timerWhole(timePast)
+  // demand.setting = demand.numGenerator()
   console.log("click reset game", demand)}
 )
 
@@ -306,4 +311,16 @@ inputBar.addEventListener('keypress', e => {
 });
 
 
+// console.log("offset", jsFixed.offsetTop, jsFixed.offsetLeft)
+// let originOffset = jsFixed.offsetTop
+// window.addEventListener("scroll", e => { 
+//   if (window.scrollY > originOffset) {
+//     jsFixed.style.position = "fixed"
+//     jsFixed.style.top = "10px"
+//   }
+//   if (window.scrollY <= originOffset) {
+//     jsFixed.style.position = ""
+//     jsFixed.style.top = ""
+//   }
+// })
 
