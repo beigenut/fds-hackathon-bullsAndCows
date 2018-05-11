@@ -62,7 +62,7 @@ html, body {
 
 header {
   background-color: $blue-color;
-  height: 17vh;   
+  height: 130px;   
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
@@ -102,7 +102,7 @@ section {
     position: absolute;
     background-color: #fff;
     width: 100vw;
-    min-height: 83vh;
+    height: calc(100vh - 130px);
     margin-top: -20px;
   }
   &__bnt--close {
@@ -272,7 +272,7 @@ button {
   }
   
   header {
-  height: 25vh;   
+  height: 165px;   
     h1 {
       font-size: 2rem;
       line-height: 1.9rem;
@@ -305,7 +305,7 @@ button {
   
   .how-to { 
   &__box {
-    min-height: 75vh;
+    height: calc(100vh - 165px);
     margin-top: -5px;
   }
   &__bnt--close {
