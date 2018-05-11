@@ -98,9 +98,9 @@ judge () {
 
 result () {
 
-  jsRecord.insertBefore(document.createElement("div"), jsRecord.childNodes[3])
+  jsRecord.insertBefore(document.createElement("div"), jsRecord.children[1])
   
-  jsRecord.childNodes[3].classList.add("game-record__list")
+  jsRecord.children[1].classList.add("game-record__list")
 
   let target = document.querySelector(".game-record__list")
   console.log(target)
@@ -281,17 +281,29 @@ function resetBtn () {
 
   inputBar.value  = ""
 
-  let children = jsRecord.children.length
-  console.log('children', children)
-  if ( children > 2) {
-    console.log("remove children enter")
-    for ( let i = 0; i < children; i++) {
-      console.log("remove node", i)
-      jsRecord.removeChild(jsRecord.lastChild)
-    }
+
+
+  let childrenLen = jsRecord.children.length
+  // console.log('childrenLen', childrenLen)
+  // console.log("jsRecord.children",jsRecord.children)
+  // console.log("jsRecord.children[childrenLen]",jsRecord.children[childrenLen])
+  // console.log("jsRecord.children[childrenLen].tagName", jsRecord.children[childrenLen].tagName)
+  // let i = 0;
+
+
+  while (jsRecord.children[childrenLen-1].tagName !== "P") {
+    // console.log(i, "remove children enter", "remove node", jsRecord.lastChild)
+    jsRecord.removeChild(jsRecord.lastChild)
+    childrenLen = jsRecord.children.length
+    // i++
+   }
+
+
+
     jsRecord.appendChild(document.createElement("div"))
     jsRecord.lastChild.classList.add("record__base")
-  }
+
+
 
   leftChance.classList.add("span__color-blue")
   leftChance.classList.remove("span__color-pink")
@@ -329,12 +341,14 @@ resetButton.addEventListener("click", e => {
 inputBar.addEventListener('keypress', e => {
   let key = e.keyCode;
   if (key === 13 && !demand.judgeCount) {
-    jsRow.classList.remove("offScreen")
-    jsRecord.classList.remove("offScreen")
     demand.input = inputBar.value
     console.log(demand)
     if (demand.inputConvertor()) {
       
+      jsRow.classList.remove("offScreen")
+      jsRecord.classList.remove("offScreen")
+
+
       if(demand.inning > 4){
         console.log("inning coloring enter")
         leftChance.classList.remove("span__color-blue")
