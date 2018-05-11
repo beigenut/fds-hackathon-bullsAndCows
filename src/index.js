@@ -223,9 +223,15 @@ timerWhole (timer) {
 
 }
 
+// let jsFixed = document.querySelector(".js__row__fixed")
+
+// let recoder =  document.querySelector(".recordBoard__recorder")
+// let result = document.querySelector(".recordBoard__result")
+
+
+
 
 let demand;
-
 
 let startButton = document.querySelector(".game-bnt__start")
 let resetButton = document.querySelector(".game-bnt__reset")
@@ -247,14 +253,9 @@ let jsRecord = document.querySelector(".js__record")
 let resultWin = document.querySelector(".result__win") 
 let resultLose = document.querySelector(".result__lose")
 
-// let jsFixed = document.querySelector(".js__row__fixed")
-
-// let recoder =  document.querySelector(".recordBoard__recorder")
-// let result = document.querySelector(".recordBoard__result")
 
 
-
-startButton.addEventListener("click", e => {
+function startBtn () {
   startButton.classList.add("btn__disable")
   resetButton.classList.remove("btn__disable")
   resultWin.classList.add("offScreen")
@@ -265,10 +266,11 @@ startButton.addEventListener("click", e => {
   console.log(demand.setting)
   demand.timerWhole(timePast)
   demand.setting = demand.numGenerator()
-  console.log("click new game", demand)}
-)
+  console.log("click new game", demand)
+}
 
-resetButton.addEventListener("click", e => {
+
+function resetBtn () {
   jsRow.classList.add("offScreen")
   jsRecord.classList.add("offScreen")
   resetButton.classList.add("btn__disable")
@@ -280,12 +282,16 @@ resetButton.addEventListener("click", e => {
   inputBar.value  = ""
 
   let children = jsRecord.children.length
-  for ( let i = 0; i < children; i++) {
-    console.log("remove node", i)
-    jsRecord.removeChild(jsRecord.lastChild)
+  console.log('children', children)
+  if ( children > 2) {
+    console.log("remove children enter")
+    for ( let i = 0; i < children; i++) {
+      console.log("remove node", i)
+      jsRecord.removeChild(jsRecord.lastChild)
+    }
+    jsRecord.appendChild(document.createElement("div"))
+    jsRecord.lastChild.classList.add("record__base")
   }
-  jsRecord.appendChild(document.createElement("div"))
-  jsRecord.lastChild.classList.add("record__base")
 
   leftChance.classList.add("span__color-blue")
   leftChance.classList.remove("span__color-pink")
@@ -296,7 +302,28 @@ resetButton.addEventListener("click", e => {
   // demand.timerWhole(timePast)
   // demand.setting = demand.numGenerator()
   console.log("click reset game", demand)}
+
+
+
+startButton.addEventListener("click", e => {
+  resetButton = document.querySelector(".game-bnt__reset")
+  startBtn()
+  resetButton.addEventListener("click", function () {
+    resetBtn()
+  })
+  startButton = "" }
 )
+
+
+resetButton.addEventListener("click", e => {
+  startButton = document.querySelector(".game-bnt__start")
+  resetBtn()
+  startButton.addEventListener("click", function () {
+    startBtn()
+  })
+  resetButton = ""
+})
+
 
 
 inputBar.addEventListener('keypress', e => {
@@ -307,16 +334,16 @@ inputBar.addEventListener('keypress', e => {
     demand.input = inputBar.value
     console.log(demand)
     if (demand.inputConvertor()) {
-
+      
       if(demand.inning > 4){
         console.log("inning coloring enter")
         leftChance.classList.remove("span__color-blue")
         leftChance.classList.add("span__color-pink")
       }
-
+      
       timeLeft.classList.remove("span__color-pink")
       timeLeft.classList.add("span__color-blue")
-
+      
       demand.timerInterval(timeLeft)
       demand.inning++
       demand.input = demand.inputConvertor()
@@ -329,22 +356,77 @@ inputBar.addEventListener('keypress', e => {
       demand.judgeCount = demand.judge()
       inputBar.value = ""
       leftChance.textContent = 9 - demand.inning
-
+      
     } 
   }
 });
+
+
+
+
+
+
+// startButton.addEventListener("click", e => {
+//   startButton.classList.add("btn__disable")
+//   resetButton.classList.remove("btn__disable")
+//   resultWin.classList.add("offScreen")
+//   resultLose.classList.add("offScreen")
+//   inputBar.classList.remove("offScreen")
+
+//   demand = new Game()
+//   console.log(demand.setting)
+//   demand.timerWhole(timePast)
+//   demand.setting = demand.numGenerator()
+//   console.log("click new game", demand)}
+// )
+
+// resetButton.addEventListener("click", e => {
+//   jsRow.classList.add("offScreen")
+//   jsRecord.classList.add("offScreen")
+//   resetButton.classList.add("btn__disable")
+//   startButton.classList.remove("btn__disable")
+//   resultWin.classList.add("offScreen")
+//   resultLose.classList.add("offScreen")
+//   inputBar.classList.add("offScreen")
+
+//   inputBar.value  = ""
+
+//   let children = jsRecord.children.length
+//   console.log('children', children)
+//   if ( children > 2) {
+//     console.log("remove children enter")
+//     for ( let i = 0; i < children; i++) {
+//       console.log("remove node", i)
+//       jsRecord.removeChild(jsRecord.lastChild)
+//     }
+//     jsRecord.appendChild(document.createElement("div"))
+//     jsRecord.lastChild.classList.add("record__base")
+//   }
+
+//   leftChance.classList.add("span__color-blue")
+//   leftChance.classList.remove("span__color-pink")
+
+//   timeLeft.textContent = "01:00";
+//   demand.judgeCount = 1;
+//   // demand = new Game()
+//   // demand.timerWhole(timePast)
+//   // demand.setting = demand.numGenerator()
+//   console.log("click reset game", demand)}
+// )
+
+
 
 
 // console.log("offset", jsFixed.offsetTop, jsFixed.offsetLeft)
 // let originOffset = jsFixed.offsetTop
 // window.addEventListener("scroll", e => { 
 //   if (window.scrollY > originOffset) {
-//     jsFixed.style.position = "fixed"
-//     jsFixed.style.top = "10px"
-//   }
-//   if (window.scrollY <= originOffset) {
-//     jsFixed.style.position = ""
-//     jsFixed.style.top = ""
-//   }
-// })
-
+  //     jsFixed.style.position = "fixed"
+  //     jsFixed.style.top = "10px"
+  //   }
+  //   if (window.scrollY <= originOffset) {
+    //     jsFixed.style.position = ""
+    //     jsFixed.style.top = ""
+    //   }
+    // })
+    
