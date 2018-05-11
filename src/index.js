@@ -71,11 +71,20 @@ strikeCount() {
 
 judge () {
   if(this.out === 3 || (this.inning === 9 && this.strike < 3)) {
-    document.querySelector(".result__lose").classList.remove("offScreen")
+    answerNums.textContent = 
+    this.setting[0] + " " +
+    this.setting[1] + " " +
+    this.setting[2]
+    // startButton.classList.remove("btn__disable")
+    // resetButton.classList.add("btn__disable")
+    resultLose.classList.remove("offScreen")
     return 1
   }
   if(this.strike > 2) {
-    document.querySelector(".result__win").classList.remove("offScreen")
+    usedChance.textContent = this.inning
+    // startButton.classList.remove("btn__disable")
+    // resetButton.classList.add("btn__disable")
+    resultWin.classList.remove("offScreen")
     return 1
   }
 }
@@ -83,30 +92,31 @@ judge () {
 
 result () {
 
-  document.querySelector(".js__record").insertBefore(document.createElement("div"), document.querySelector(".js__record").childNodes[1])
+  jsRecord.insertBefore(document.createElement("div"), jsRecord.childNodes[3])
   
-  document.querySelector(".js__record").childNodes[1].classList.add("game-record__list")
+  jsRecord.childNodes[3].classList.add("game-record__list")
 
-  let target = document.querySelector(".game-record_list")
+  let target = document.querySelector(".game-record__list")
+  console.log(target)
   
   target.appendChild(document.createElement("span"))
   target.lastChild.classList.add("game-record__turn")
-  target.lastChild.textContent = inning.toString()
+  target.lastChild.textContent = this.inning.toString()
 
   target.appendChild(document.createElement("span"))
   target.lastChild.classList.add("game-record__digit")
   target.lastChild.classList.add("game-record__digit1")
-  target.lastChild.textContent = input[0].toString()
+  target.lastChild.textContent = this.input[0].toString()
   
   target.appendChild(document.createElement("span"))
   target.lastChild.classList.add("game-record__digit")
   target.lastChild.classList.add("game-record__digit2")
-  target.lastChild.textContent = input[1].toString()
+  target.lastChild.textContent = this.input[1].toString()
 
   target.appendChild(document.createElement("span"))
   target.lastChild.classList.add("game-record__digit")
   target.lastChild.classList.add("game-record__digit3")
-  target.lastChild.textContent = input[2].toString()
+  target.lastChild.textContent = this.input[2].toString()
 
   target.appendChild(document.createElement("span"))
   target.lastChild.classList.add("game-record__strike")
@@ -125,7 +135,7 @@ result () {
 
     outSpan.appendChild(document.createElement("span"))
     outSpan.lastChild.classList.add("span__color-blue")
-    outSpan.lastChild.textContent = this.strike.toString()
+    outSpan.lastChild.textContent = this.out.toString()
 
     outSpan.appendChild(document.createElement("span"))
     outSpan.lastChild.textContent = "Out"
@@ -150,13 +160,13 @@ result () {
 }
 
 
-recorder () {
-    let recordBoard = document.querySelector(".recordBoard__result");
-    recordBoard.appendChild(document.createElement("p"));
-    recordBoard.lastChild.textContent =
-    " Inning: " + this.inning.toString() 
-    + " Input: " + this.input.join("").toString()
-}
+// recorder () {
+//     let recordBoard = document.querySelector(".recordBoard__result");
+//     recordBoard.appendChild(document.createElement("p"));
+//     recordBoard.lastChild.textContent =
+//     " Inning: " + this.inning.toString() 
+//     + " Input: " + this.input.join("").toString()
+// }
 
 
 timerInterval (timer) {
@@ -175,7 +185,7 @@ timerInterval (timer) {
     if (minutes < 1 && seconds < 1) {
       clearInterval(x);
       this.judgeCount = 1;
-      document.querySelector(".result__lose").classList.remove("offScreen")   
+      resultLose.classList.remove("offScreen")   
     } else if (this.judgeCount) {
       clearInterval(x);
     }
@@ -216,26 +226,52 @@ let timePast = document.querySelector(".js__game-win__time")
 let conclusion = document.querySelector(".game-win")
 let inputBar = document.querySelector(".game-form__input")
 
+
+let usedChance = document.querySelector(".js__game-win__chance")
+let answerNums = document.querySelector(".game-lose__answer-nums")
+let leftChance = document.querySelector(".js__game-left__chance")
+
+let jsRow = document.querySelector(".js__row")
+let jsRecord = document.querySelector(".js__record")
+
+let resultWin = document.querySelector(".result__win") 
+let resultLose = document.querySelector(".result__lose")
+
+
+
 // let recoder =  document.querySelector(".recordBoard__recorder")
 // let result = document.querySelector(".recordBoard__result")
 
 
 
 startButton.addEventListener("click", e => {
+  startButton.classList.add("btn__disable")
+  resetButton.classList.remove("btn__disable")
+  resultWin.classList.add("offScreen")
+  resultLose.classList.add("offScreen")
+  inputBar.classList.remove("offScreen")
+
   demand = new Game()
+  console.log(demand.setting)
   demand.timerWhole(timePast)
   demand.setting = demand.numGenerator()
   console.log("click new game", demand)}
 )
 
 resetButton.addEventListener("click", e => {
+  jsRow.classList.add("offScreen")
+  jsRecord.classList.add("offScreen")
+  resetButton.classList.add("btn__disable")
+  startButton.classList.remove("btn__disable")
+  inputBar.classList.add("offScreen")
+
+  for ( let i = 0; i < jsRecord.children.length+2; i++) {
+    jsRecord.removeChild(jsRecord.lastChild)
+  }
+  jsRecord.appendChild(document.createElement("div"))
+  jsRecord.lastChild.classList.add("record__base")
 
   timeLeft.textContent = "01:00";
- 
-
-  document.querySelector(".result__lose").classList.remove("offScreen")
-  document.querySelector(".result__win").classList.remove("offScreen")
-  
   demand.judgeCount = 1;
   demand = new Game()
   demand.timerWhole(timePast)
@@ -247,6 +283,8 @@ resetButton.addEventListener("click", e => {
 inputBar.addEventListener('keypress', e => {
   let key = e.keyCode;
   if (key === 13 && !demand.judgeCount) {
+    jsRow.classList.remove("offScreen")
+    jsRecord.classList.remove("offScreen")
     demand.input = inputBar.value
     console.log(demand)
     if (demand.inputConvertor()) {
@@ -261,7 +299,9 @@ inputBar.addEventListener('keypress', e => {
       console.log(demand)
       demand.judgeCount = demand.judge()
       inputBar.value = ""
-    } else { return ""}
+      leftChance.textContent = 9 - demand.inning
+
+    } 
   }
 });
 

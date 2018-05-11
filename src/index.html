@@ -25,34 +25,26 @@
    </div>
    <div class="row">
 
-       <input class="game-form__input" placeholder="Enter 3 digit numbers">
+       <input class="game-form__input offScreen" placeholder="Enter 3 digit numbers">
 
    </div>
    <div class="row result__win offScreen">
      <p class="game-win">YOU WIN !!</p>
-     <span class="game-win__chance">Used <span class="span__color-blue">4</span> chance(s)</span>
+     <span class="game-win__chance">Used <span class="js__game-win__chance span__color-blue">4</span> chance(s)</span>
      <span class="game-win__time">Play time <span class="js__game-win__time span__color-blue">02:30</span></span>
    </div>
    <div class="row result__lose offScreen">
      <p class="game-lose span__color-pink">YOU LOSE !!</p>
      <span class="game-lose__answer">The answer was <span class="span__color-pink game-lose__answer-nums">4 5 6</span>. TRY AGAIN</span>
    </div>
-   <div class="row">
-     <span class="game-left__chance">You have <span class="span__color-blue">4</span> chance(s) left</span>
+   <div class="js__row row offScreen">
+     <span class="game-left__chance">You have <span class="js__game-left__chance span__color-blue">4</span> chance(s) left</span>
      <span class="game-left__time">You have <span class="js__game-left__time span__color-blue">01:00</span> second(s) left</span>
    </div>
-   <div class="row js__record">
+   <div class="row js__record offScreen">
      <p class="game-record">Record(s)</p>
+     <div class="record__base"></div>
 
-     <div class="game-record__list">
-        <span class="game-record__turn">1</span>
-        <span class="game-record__digit game-record__digit1">3</span>
-        <span class="game-record__digit game-record__digit2">5</span>
-        <span class="game-record__digit game-record__digit3">6</span>
-        <span class="game-record__strike"><span class="span__color-blue">3</span> Strike(s)</span>
-        <span class="game-record__ball"><span class="span__color-blue">2</span> Ball(s)</span>
-        <span class="game-record__out"><span class="span__color-blue">Out</span></span>
-     </div>
    </div>
  </section>
  
