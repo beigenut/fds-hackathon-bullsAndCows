@@ -61,8 +61,14 @@ strikeCount() {
     list[0] === list[2] ? count++ : ''
     list[2] === list[1] ? count++ : ''
     console.log("count", count)
-    return count === 0 ? list : ( alert ("Please input again"))
+    if (count === 0 ) {
+      return list 
+    } else {
+      inputBar.value = ""
+      alert ("Please input again")
+    }
   } else {
+    inputBar.value = ""
     alert ("Please input again")
   }
 }
@@ -182,6 +188,10 @@ timerInterval (timer) {
     temp += ((minutes < 10) ? "0" : "") + minutes;
     temp += ((seconds < 10) ? ":0" : ":") + seconds;
     timer.textContent = temp
+    if (minutes < 1 && seconds <30) {
+      timeLeft.classList.remove("span__color-blue")
+      timeLeft.classList.add("span__color-pink")
+    }
     if (minutes < 1 && seconds < 1) {
       clearInterval(x);
       this.judgeCount = 1;
@@ -293,6 +303,10 @@ inputBar.addEventListener('keypress', e => {
     demand.input = inputBar.value
     console.log(demand)
     if (demand.inputConvertor()) {
+
+      timeLeft.classList.remove("span__color-pink")
+      timeLeft.classList.add("span__color-blue")
+
       demand.timerInterval(timeLeft)
       demand.inning++
       demand.input = demand.inputConvertor()
