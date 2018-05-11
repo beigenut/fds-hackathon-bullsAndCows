@@ -1,53 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta http-equiv="X-UA-Compatible" content="ie=edge">
- <link href="https://fonts.googleapis.com/css?family=Hind+Siliguri|Titan+One" rel="stylesheet">
- <link rel="stylesheet" href="./index.scss">
- <title>해커톤 템플릿 프로젝트</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Hind+Siliguri|Titan+One" rel="stylesheet">
+  <link rel="stylesheet" href="./index.scss">
+  <title>Team Amoogeona The first hackathon project</title>
 </head>
 <body>
- <header>
-  <div class="row">
-   <h1>Bulls and Cows Game</h1>
-   <p>Welcome to Amoogeona's</p>
-  </div>
- </header>
- <section class="section__game">
-   <div class="row row-rel">
-     <button class="game-bnt__how-to">HowToPlay</button>
+  <header>
+    <div class="row">
+      <div class="pdf__view js__pdf__view--on"><a href="./team-amoogeona_v0.3.pdf" target="_blank">PDF</a></div>
+    </div>   
+    <div class="row"> 
+      <div class="how-to">
+        <button class="game-bnt__how-to">HowToPlay</button>
+      </div>
+      <h1>Bulls and Cows Game</h1> 
+      <p>Welcome to Amoogeona's</p>
    </div>
-   <div class="row">
-     <button class="btn game-bnt__start">GAME START</button>
-     <button class="btn game-bnt__reset btn__disable">RESET GAME</button>
-   </div>
-   <div class="row">
-
-       <input class="game-form__input offScreen" placeholder="Enter 3 digit numbers">
-
-   </div>
-   <div class="row result__win offScreen">
-     <p class="game-win">YOU WIN !!</p>
-     <span class="game-win__chance">Used <span class="js__game-win__chance span__color-blue">4</span> chance(s)</span>
-     <span class="game-win__time">Play time <span class="js__game-win__time span__color-blue">02:30</span></span>
-   </div>
-   <div class="row result__lose offScreen">
-     <p class="game-lose span__color-pink">YOU LOSE !!</p>
-     <span class="game-lose__answer">The answer was <span class="span__color-pink game-lose__answer-nums">4 5 6</span>. TRY AGAIN</span>
-   </div>
-   <div class="js__row row offScreen">
-     <span class="game-left__chance">You have <span class="js__game-left__chance span__color-blue">4</span> chance(s) left</span>
-     <span class="game-left__time">You have <span class="js__game-left__time span__color-blue">01:00</span> second(s) left</span>
-   </div>
-   <div class="row js__record offScreen">
-     <p class="game-record">Record(s)</p>
-     <div class="record__base"></div>
-
-   </div>
- </section>
- 
- <script src="./index.js"></script>
+  </header>
+  <section class="section__game">
+    <div class="how-to__box offScreen">
+      <button class="how-to__bnt--close"><ion-icon name="close-circle-outline"></ion-icon></button>
+      <p class="how-to__instructor">
+        Play this easy, simple, peasy, lemon squeezy game!<br>
+        <br>
+        1. Enter 3 digit numbers by avoiding duplication.<br>
+        2. Guess the randomly chosen 3 digit numbers by AI.<br>
+        3. Bulls = correct number, but wrong position.<br>
+        4. Cows = correct number and correct position.<br>
+        5. Make 3 Cows, you win this game.<br>
+        6. Be careful, you must guess the numbers <br>within the certain time range.<br>
+        7. Also, you have only 9 maximum trials on each game.<br>
+        <br>
+        Good luck!
+      </p>
+    </div>
+    <div class="row">
+      <button class="btn game-bnt__start">GAME START</button>
+      <button class="btn game-bnt__reset btn__disable">RESET GAME</button>
+    </div>
+    <div class="row">
+      <input class="game-form__input offScreen" placeholder="Enter 3 digit numbers from 0 to 9">
+    </div>
+    <div class="row__max result__win game-win offScreen">
+      <p class="game-win__p">YOU WIN !!</p>
+      <span class="game-win__chance">Used <span class="js__game-win__chance span__color-blue">4</span> chance(s)</span>
+      <span class="game-win__time">Play time <span class="js__game-win__time span__color-blue">02:30</span></span>
+    </div>
+    <div class="row__max result__lose game-lose offScreen">
+      <p class="game-lose__p span__color-pink ">YOU LOSE !!</p>
+      <span class="game-lose__answer">The answer was <span class="span__color-pink game-lose__answer-nums">4 5 6</span>. TRY AGAIN</span>
+    </div>
+    <div class="js__row row offScreen">
+     <div class="game-left">
+        <span class="game-left__chance">You have <span class="js__game-left__chance span__color-blue">4</span> chance(s) left</span>
+        <span class="game-left__time">You have <span class="js__game-left__time span__color-blue">02:30</span> second(s) left</span>
+      </div>
+      <div class="row js__record offScreen">
+        <p class="game-record">Record(s)</p>
+        <div class="record__base"></div>
+      </div>
+    </div>
+  </section> 
+  
+  <script src="https://unpkg.com/ionicons@4.0.0/dist/ionicons.js"></script>
+  <script src="./index.js"></script>
 </body>
 </html>
