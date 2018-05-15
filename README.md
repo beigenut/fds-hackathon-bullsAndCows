@@ -4,7 +4,7 @@
 
 Design Bulls and Cows game using SCSS, and pure JS
 
-> www.amoogeona.netlify.com
+> amoogeona.netlify.com
 
 # FDS 9기 해커톤 템플릿 프로젝트
 
